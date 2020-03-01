@@ -61,7 +61,8 @@ public class CharacterRepositoryImpl implements CharacterRepositoryQuery {
 		criteria.where(predicates);
 
 		TypedQuery<Character> query = manager.createQuery(criteria);
-		return query.getResultList();
+		query.setFirstResult(filter.getOffset() >= 0 ? (filter.getOffset()) : 0);
+		return query.setMaxResults(filter.getLimit()).getResultList();
 	}
 
 	private Predicate[] createRestrictions(CharacterFilter filter, CriteriaBuilder builder, Root<Character> root,

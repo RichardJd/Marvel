@@ -8,4 +8,5 @@ import br.com.rj.marvel.repository.filter.CharacterFilter;
 public interface CharacterService {
 
 	public CharacterDataWrapperDTO getCharacters(HttpServletResponse response, CharacterFilter filter);
+	public CharacterDataWrapperDTO getCharacter(Integer id, HttpServletResponse response, CharacterFilter filter);
 }

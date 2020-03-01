@@ -16,6 +16,14 @@ public class CharacterFilter {
 	private Integer series;
 	private Integer events;
 	private Integer stories;
+	
+	private Integer limit;
+	private Integer offset;
+	
+	public CharacterFilter() {
+		limit = 20;
+		offset = 0;
+	}
 
 	public String getName() {
 		return name;
@@ -71,5 +79,21 @@ public class CharacterFilter {
 
 	public void setStories(Integer stories) {
 		this.stories = stories;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
 	}
 }

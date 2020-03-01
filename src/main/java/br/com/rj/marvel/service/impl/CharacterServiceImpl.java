@@ -1,6 +1,8 @@
 package br.com.rj.marvel.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,17 +30,41 @@ public class CharacterServiceImpl implements CharacterService {
 
 	@Override
 	public CharacterDataWrapperDTO getCharacters(HttpServletResponse response, CharacterFilter filter) {
-		CharacterDataWrapperDTO wrapper = new CharacterDataWrapperDTO();
 		List<Character> characters = repository.getCharacters(filter);
+		Long total = repository.count();
 		getURIS(characters);
 
 		List<CharacterDTO> charactersDTO = CharacterDTO.converter(characters);
+		CharacterDataWrapperDTO wrapper = getWrapper(response, filter, characters, total, charactersDTO);
 
+		return wrapper;
+	}
+	
+	@Override
+	public CharacterDataWrapperDTO getCharacter(Integer id, HttpServletResponse response, CharacterFilter filter) {
+		Optional<Character> character = repository.findById(id);
+		List<Character> characters = new ArrayList<>();
+		if (character.isPresent())
+			characters.add(character.get());
+		getURIS(characters);
+		
+		List<CharacterDTO> charactersDTO = CharacterDTO.converter(characters);
+		CharacterDataWrapperDTO wrapper = getWrapper(response, filter, characters, 1L, charactersDTO);
+		return wrapper;
+	}
+
+	private CharacterDataWrapperDTO getWrapper(HttpServletResponse response, CharacterFilter filter,
+			List<Character> characters, Long total, List<CharacterDTO> charactersDTO) {
+		
+		CharacterDataWrapperDTO wrapper = new CharacterDataWrapperDTO();
 		wrapper.setCode(response.getStatus());
 		wrapper.setStatus(HttpStatus.valueOf(wrapper.getCode()).toString().substring(4));
+		wrapper.getData().setOffset(filter.getOffset() >= 0 ? (filter.getOffset()) : 0);
+		wrapper.getData().setLimit(filter.getLimit());
+		wrapper.getData().setTotal(total.intValue());
 		wrapper.getData().setCount(characters.size());
 		wrapper.getData().setResults(charactersDTO);
-
+		
 		return wrapper;
 	}
 	
