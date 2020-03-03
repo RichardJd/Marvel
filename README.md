@@ -17,7 +17,7 @@ Os scripts iniciais são executados automaticamente ao iniciar a API pela primei
 ## Instalação
 
 ```sh
-Para gerar o .jar da API, executar o comando ./mvnw clean package install na raiz do projeto, 
+Para gerar o .jar da API, executar o comando "./mvnw clean package install -DskipTests" na raiz do projeto, 
 será gerado o pacote necessário para execução dentro da pasta target.
 ```
 
@@ -29,13 +29,13 @@ Para executar o .jar da API, executar o comando java -jar marvel-api-0.0.1-SNAPS
 
 ## Exemplo de uso
 
-Até o momento foi implementado a busca por todos os personagens e a busca pelo ID do personagem.
+Até o momento foi implementado a busca por todos os personagens e a busca pelo ID do personagem. Para testes no start da aplicação irão ser inseridos 5 registros de personagens.
 
 1 - Método GET
 
 Pela url
 
-***/v1/public/characteres/***
+***/v1/public/characters/***
 
 Neste endpoint temos as opções de de adicionar query params como filtro, segue abaixo os parametros existentes:
 - modifiedSince: filtra as datas maiores ou iguais a ultima data de alteração do personagem. (Campo de data no formato yyyy-mm-dd)
@@ -48,14 +48,30 @@ Neste endpoint temos as opções de de adicionar query params como filtro, segue
 - limit - limita a quantidade de registros da resposta desta chamada. (Campo numero inteiro) - Se o limite for menor do que 1 ou maio do que 100 ele dará um erro 409.
 - offset - filtra os registros a partir do id passado. (Campo numero inteiro)
 
-![Imgur](https://i.imgur.com/EcTjgIw.png)
+![Imgur](https://i.imgur.com/y1p7XPi.png)
 
 2 - Método GET /{id}
 
 Pela url
 
-***/v1/public/characteres/id***
+***/v1/public/characters/id***
 
 Neste endpoint buscamos por apenas um personagem, adicionando seu id ao final do endpoint do método GET, se o id buscado não for encontrado retornará um erro 404.
 
-![Imgur](https://i.imgur.com/v4nlvhN.png)
+![Imgur](https://i.imgur.com/g0SYJFg.png)
+
+
+## Testes unitários
+
+***Atenção***
+Executar os testes com a aplicaçao em execução.
+
+Para executar os testes, executar o seguinte comando na raiz do projeto:
+
+```sh
+"./mvnw test"
+```
+
+Até o momento temos testes relacionados: 
+- Aos Endpoints mencionados nos ``Exemplos de uso``.
+- Aos métodos utilizados no ``repository``
