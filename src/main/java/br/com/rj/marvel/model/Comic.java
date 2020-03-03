@@ -1,5 +1,6 @@
 package br.com.rj.marvel.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,6 +30,10 @@ public class Comic {
 	@OneToMany
 	@JoinColumn(name = "id_comic")
 	private List<ComicSummary> items;
+
+	public Comic() {
+		this.items = new ArrayList<>();
+	}
 
 	public Integer getId() {
 		return id;

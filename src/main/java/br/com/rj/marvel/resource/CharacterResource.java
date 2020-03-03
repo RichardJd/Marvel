@@ -15,7 +15,7 @@ import br.com.rj.marvel.repository.filter.CharacterFilter;
 import br.com.rj.marvel.service.impl.CharacterServiceImpl;
 
 @RestController
-@RequestMapping("/v1/public/characteres")
+@RequestMapping("/v1/public/characters")
 public class CharacterResource {
 
 	@Autowired
